@@ -1,0 +1,33 @@
+# FFI::Stree
+
+This library provides a wrapper for the 'generic suffix tree library' (libstree) using FFI.
+
+    libstree is a generic suffix tree implementation, written in C.
+    It can handle arbitrary data structures as elements of a string.
+    Unlike most demo implementations, it is not limited to simple
+    ASCII character strings. Suffix tree generation in libstree is
+    highly efficient and implemented using the algorithm by Ukkonen.
+    -- http://www.icir.org/christian/libstree/
+
+
+## Installation
+
+    gem install ffi-stree
+
+No compilation is required.
+
+You will need to have libstree installed in order to actually use the library.
+
+    osc:     port install libstree
+    arch:    yaourt -S --aur foobar
+    debian:  apt-get install libstree
+
+
+## FFI::Stree Sample
+
+    require 'ffi-stree'
+
+
+## License
+
+FFI::Stree is distributed under MIT license.
