@@ -4,6 +4,7 @@
 #
 require 'ffi'
 
+module FFI
 module Stree
   extend FFI::Library
   # deps: use libstree v4.2 (4.3-pre2 gives unwanted results)
@@ -80,7 +81,7 @@ module Stree
     def close
       # lst_stree_free should free them all.
       #Stree.lst_stringset_free(@set) unless  @set.null? # lst_string_free(lst_s)
-      Stree.lst_stree_free(@tree)    unless @tree.null?
+      Stree.lst_stree_free(@tree)    unless (@tree.respond_to?(:null?) ? @tree.null? : @tree.nil?)
       Stree::Active.each_with_index{|i,idx|
           Stree::Active.delete_at(idx) if i == self }
       @tree, @set = nil, nil
@@ -90,4 +91,5 @@ module Stree
     alias :flush :close
   end # Tree
 end # Stree
+end # FFI
 

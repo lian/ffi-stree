@@ -3,11 +3,11 @@ require File.join(File.dirname(__FILE__), '../lib/ffi-stree.rb')
 require 'bacon'
 Bacon.summary_on_exit
 
-describe Stree::Tree do
+describe FFI::Stree::Tree do
   # deps: v4.2 (broken 4.3-pre2)
 
   it 'initializes' do
-    @tree = Stree::Tree.new
+    @tree = FFI::Stree::Tree.new
     @tree.entries.size.should == 0
   end
 
@@ -28,9 +28,10 @@ describe Stree::Tree do
   end
 
   it '#close should free objects' do
+    @tree.instance_eval { @tree.null?.should == false }
     @tree.close
-    Stree::Active.size.should == 0
-    @tree.instance_eval { @set.should == nil; @view.should == nil }
+    FFI::Stree::Active.size.should == 0
+    @tree.instance_eval { @set.should == nil; @view.should == nil; @tree.should == nil }
   end
 end
 
@@ -43,7 +44,7 @@ Benchmark.bmbm do |x|
 
   x.report("init-#{n}-2") do
     n.times {
-      tree = Stree::Tree.new
+      tree = FFI::Stree::Tree.new
       tree << 'yokatt'
       tree << 'nemukatt'
       tree.longest_common_substring(0,10)
@@ -51,7 +52,7 @@ Benchmark.bmbm do |x|
     } 
   end
 
-  tree = Stree::Tree.new
+  tree = FFI::Stree::Tree.new
   tree << 'yokatt'
   tree << 'nemukatt'
 
@@ -84,7 +85,7 @@ Benchmark.bmbm do |x|
 
   tree.close
   n = 1000
-  tree = Stree::Tree.new
+  tree = FFI::Stree::Tree.new
 
   100.times {
     tree << 'yokatt'
@@ -106,7 +107,7 @@ Benchmark.bmbm do |x|
 
   tree.close
   n = 10
-  tree = Stree::Tree.new
+  tree = FFI::Stree::Tree.new
 
   10000.times {
     tree << 'yokatt'

@@ -27,6 +27,13 @@ You will need to have libstree installed in order to actually use the library.
 
     require 'ffi-stree'
 
+    tree = FFI::Stree::Tree.new
+    tree << 'yokatt'
+    tree << 'nemukatt'
+
+    p @tree.longest_common_substring(0,10)
+    # => ["katt"]
+
 
 ## License
 
